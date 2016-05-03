@@ -36,6 +36,20 @@
   _Private.prototype = Object.create( Object.prototype );
    
   _Private.prototype.constructor = _Private;
+
+  _Private.prototype.setIsTrue = function( options, instance ){
+    'use strict';
+
+    if ( typeof options === 'boolean') {
+      instance.isTrue = options;
+    }
+
+    if ( typeof options === 'function') {
+      instance.isTrue = !!options();
+    }
+
+    return instance;
+  };
  
   var _private = new _Private();
  
@@ -43,15 +57,13 @@
   // Public API
   ////////////////////////////////////////////////////////////////////////
  
-  var ifTrue = function( options ){
-    'use strict';
-    var instance = new ifTrue.Condition();
-
-    return instance.setIsTrue(options);
-  };
+  var ifTrue = {};
 
   ifTrue.Condition = function(){
     this.isTrue = true;
+    this.executedOnTrue = false;
+    this.continue = true;
+    this.elseIfContinue = true;
     return this;
   };
   ifTrue.Condition.prototype = Object.create(Object.prototype);
@@ -63,37 +75,55 @@
     return this.isTrue;
   };
   //======================================
-  ifTrue.if = ifTrue.Condition.prototype.if = ifTrue;
+  ifTrue.if = ifTrue.Condition.prototype.if = function( options ){
+    'use strict';
+    var instance = new ifTrue.Condition();
+
+    return _private.setIsTrue( options, instance );
+  };
   ifTrue.or = ifTrue.Condition.prototype.or = function( options ){
     'use strict';
     var instance = this;
 
+    if ( !instance.continue ) {
+      return instance;
+    }
     if ( instance.isTrue ) {
+      instance.continue = false;
       return instance;
     }
 
-    return instance.setIsTrue(options);
+    return _private.setIsTrue( options, instance );
   };
   ifTrue.and = ifTrue.Condition.prototype.and = function( options ){
     'use strict';
     var instance = this;
 
+    if ( !instance.continue ) {
+      return instance;
+    }
     if ( !instance.isTrue ) {
       return instance;
     }
-
-    return instance.setIsTrue(options);
+    return _private.setIsTrue( options, instance );
   };
   ifTrue.run = ifTrue.Condition.prototype.run = function( options ){
     'use strict';
     var instance = this;
+
     if (typeof options !== 'function') {
       return instance;
     }
     if (!instance.isTrue) {
       return instance;
     }
-    options();
+    if (!instance.elseIfContinue) {
+      return instance;
+    }
+    if ( typeof options === 'function' ) {
+      instance.executedOnTrue = true;
+      options();
+    }
     return instance;
   };
   //======================================
@@ -105,7 +135,8 @@
       return instance;
     }
 
-    if ( typeof options === 'function') {
+    if ( typeof options === 'function' && instance.executedOnTrue === false ) {
+      instance.executedOnTrue = true;
       options();
     }
 
@@ -116,25 +147,14 @@
     var instance = this;
 
     if ( instance.isTrue ) {
+      instance.elseIfContinue = false;
       return instance;
     }
 
-    return instance.setIsTrue(options);
+    return _private.setIsTrue( options, instance );
   };
-  //======================================
-  ifTrue.Condition.prototype.setIsTrue = function( options ){
-    'use strict';
-    var instance = this;
-
-    if ( typeof options === 'boolean') {
-      instance.isTrue = options;
-    }
-
-    if ( typeof options === 'function') {
-      instance.isTrue = !!options();
-    }
-
-    return instance;
+  ifTrue.version = function(){
+    return _private.VERSION;
   };
  
   return ifTrue;

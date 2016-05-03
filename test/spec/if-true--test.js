@@ -5,218 +5,380 @@
 
   'use strict';
   
-  describe("Section.js", function() {
+  describe("if-true.js", function() {
 
-    it('should be a global function in a non-AMD environment', function(){
-      expect(Section).to.be.a('function');
+    it('should be a global object in a non-AMD environment', function(){
+      expect(ifTrue).to.be.a('object');
     });
 
     it('should return the version', function(){
-      expect(Section.version()).to.be.a('string');
+      expect(ifTrue.version()).to.be.a('string');
     });
 
-    describe('inherit properties', function(){
-      it('should have elements as an array', function(){
-        var feature = new Section();
-        feature.init();
-        expect(feature.elements).to.be.a.array;
+    describe('"if" usage', function(){
+      it('run will execute after truthy "if" condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('pass');
       });
 
-      it('should have inits as an array', function(){
-        var feature = new Section();
-        feature.init();
-        expect(feature.inits).to.be.a.array;
-      });
-
-      it('should have events as an array', function(){
-        var feature = new Section();
-        feature.init();
-        expect(feature.events).to.be.a.array;
-      });
-
-      it('should have subscriptions as an array', function(){
-        var feature = new Section();
-        feature.init();
-        expect(feature.subscriptions).to.be.a.array;
-      });
-
-      it('should have data as an object', function(){
-        var feature = new Section();
-        feature.init();
-        expect(feature.data).to.be.a.object;
+      it('run will not execute after failed "if" condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(false)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('fail');
       });
     });
 
-    describe('passing options', function(){
-      it('should add the event to the events array', function(){
-
-        var event = {
-          events: 'click',
-          selector: 'div',
-          fn: function(e){
-            console.log('event: ', e);
-          }
-        };
-
-        var feature = new Section({
-          section: $('div'),
-          data: {},
-          events: [ event ],
-          subscriptions: [],
-          inits: [],
-        });
-
-        feature.init();
-
-        expect(feature.events[0]).to.equal(event);
+    describe('"or" usage', function(){
+      it('run will execute after truthy "or" condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(false)
+          .or(true)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('pass');
       });
 
-      it('should add the subscription to the subscriptions array', function(){
-
-        var subscription = {
-          topic: 'topic1',
-          fn: function( data ){}
-        };
-        
-        var feature = new Section({
-          section: $('div'),
-          data: {},
-          events: [],
-          subscriptions: [ subscription ],
-          inits: [],
-        });
-
-        feature.init();
-
-        expect(feature.subscriptions[0]).to.equal(subscription);
+      it('run will not execute after failed "or" condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(false)
+          .or(false)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('fail');
       });
 
-      it('should add the init to the inits array', function(){
-
-        var init1 = {
-          fn: function( data ){},
-          args: []
-        };
-        
-        var feature = new Section({
-          section: null,
-          data: {},
-          events: [],
-          subscriptions: [],
-          inits: [ init1 ],
-        });
-
-        feature.init();
-
-        expect(feature.inits[0]).to.equal(init1);
-      });
-
-      it('should add the data object to the data object', function(){
-
-        var data = {
-          awesome: true
-        };
-        
-        var feature = new Section({
-          section: null,
-          data: {
-            awesome: true
-          },
-          events: [],
-          subscriptions: [],
-          inits: [],
-        });
-
-        feature.init();
-
-        expect(feature.data.awesome).to.equal(true);
+      it('run will execute after truthy "if" condition when containing "or"', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .or(false)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('pass');
       });
     });
 
-    describe('calling init', function(){
-      it('should loop through all inits and run them', function(){
+    describe('"and" usage', function(){
+      it('run will execute with truthy "and" conditions', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .and(true)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('pass');
+      });
 
-        var count = 0;
-
-        var init1 = {
-          fn: function( data ){
-            count++;
-          },
-          args: [count]
-        };
-
-        var init2 = {
-          fn: function( data ){
-            count++;
-          },
-          args: [count]
-        };
-
-        var init3 = {
-          fn: function( data ){
-            count++;
-          },
-          args: [count]
-        };
-        
-        var feature = new Section({
-          section: null,
-          data: {},
-          events: [],
-          subscriptions: [],
-          inits: [ init1, init2, init3 ],
-        });
-
-        feature.init();
-
-        expect(count).to.equal(3);
+      it('run will not execute after failed "and" condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .and(false)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('fail');
       });
     });
 
-    describe('publish/subscribe', function(){
-      it('should return the subscription handle', function(){
-
-        var topic = 'a';
-        var bindee = {};
-        var fn = function(){ return 'red'; };
-        var subscription = Section.subscribe(topic, bindee, fn);
-
-        expect(subscription[0]).to.equal(topic);
-        expect(subscription[1]()).to.equal(fn.bind(bindee)());
+    describe('"run" usage', function(){
+      it('run will execute with truthy conditions', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('pass');
       });
 
-      it('should recieve the publish', function(){
-
-        var topic = 'b';
-        var bindee = {};
-        var fn = function(data){
-          expect(data).to.equal(4);
-        };
-        var subscription = Section.subscribe(topic, bindee, fn);
-        Section.publish('b', 4);
+      it('run will not execute after failed condition', function(){
+        var result = 'fail';
+        ifTrue
+          .if(false)
+          .run(function(){
+            result = 'pass';
+          })
+        expect(result).to.equal('fail');
       });
 
-      it('should unsubscribe the subscription', function(){
-
-        var topic = 'c';
-        var bindee = {};
-        var fn = function(data){
-          expect(true).to.equal(false);
-        };
-        var subscription = Section.subscribe(topic, bindee, fn);
-
-        Section.unsubscribe(subscription);
-
-        Section.publish('c', 9);
-      });
-
-      it('should return the subscriptions', function(){
-
-        var subscriptions = Section.getSubscriptions();
-        expect(subscriptions).to.be.a.object;
+      it('chained "run" will execute with truthy conditions', function(){
+        var result1 = 'fail';
+        var result2 = 'fail';
+        ifTrue
+          .if(true)
+          .run(function(){
+            result1 = 'pass';
+          })
+          .run(function(){
+            result2 = 'pass';
+          })
+        expect(result1).to.equal('pass');
+        expect(result2).to.equal('pass');
       });
     });
 
+    describe('"else if" usage', function(){
+      it('elseIf will execute when other conditions fail', function(){
+        var run1 = 'fail';
+        var run2 = 'fail';
+        var _else1 = 'fail';
+        var modified = 'not modified';
+        ifTrue
+          .if(true)
+          .and(false)
+          .or(false)
+          .and(false)
+          .run(function(){
+            run1 = 'fail run';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return true;
+          })
+          .run(function(){
+            run2 = 'pass elseIf';
+          })
+          .else(function(){
+            _else1 = 'else';
+          })
+        expect(run1).to.equal('fail');
+        expect(run2).to.equal('pass elseIf');
+        expect(modified).to.equal('modified');
+        expect(_else1).to.equal('fail');
+      });
+
+      it('elseIf will not execute when other conditions pass', function(){
+        var run1 = 'fail';
+        var run2 = 'pass';
+        var modified = 'not modified';
+        ifTrue
+          .if(true)
+          .and(true)
+          .or(false)
+          .and(false)
+          .run(function(){
+            run1 = 'pass';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return true;
+          })
+        expect(run1).to.equal('pass');
+        expect(modified).to.equal('not modified');
+      });
+
+      it('run will execute after a passing elseIf', function(){
+        var run1 = 'fail';
+        var run2 = 'fail';
+        var _else1 = 'fail';
+        var modified = 'not modified';
+        ifTrue
+          .if(true)
+          .and(false)
+          .or(false)
+          .and(false)
+          // .or(false)
+          // .or(true)
+          // .and(true)
+          // .and(false)
+          .run(function(){
+            run1 = 'fail run';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return true;
+          })
+          .run(function(){
+            run2 = 'pass elseIf';
+          })
+          .else(function(){
+            _else1 = 'else';
+          })
+        expect(run1).to.equal('fail');
+        expect(run2).to.equal('pass elseIf');
+        expect(modified).to.equal('modified');
+        expect(_else1).to.equal('fail');
+      });
+
+      it('run will not execute after a non-executed elseIf', function(){
+        var run1 = 'fail';
+        var run2 = 'pass';
+        var _else1 = 'fail';
+        var modified = 'not modified';
+        ifTrue
+          .if(true)
+          .and(true)
+          .or(false)
+          .and(false)
+          .run(function(){
+            run1 = 'pass';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return true;
+          })
+          .run(function(){
+            run2 = 'fail';
+          })
+          .else(function(){
+            _else1 = 'else';
+          })
+        expect(run1).to.equal('pass');
+        expect(run2).to.equal('pass');
+        expect(modified).to.equal('not modified');
+        expect(_else1).to.equal('fail');
+      });
+
+      it('run will not execute after a failing elseIf', function(){
+        var run1 = 'pass';
+        var run2 = 'pass';
+        var _else1 = 'fail';
+        var modified = 'modified';
+        ifTrue
+          .if(true)
+          .and(false)
+          .or(false)
+          .and(false)
+          .run(function(){
+            run1 = 'fail';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return false;
+          })
+          .run(function(){
+            run2 = 'fail';
+          })
+          .else(function(){
+            _else1 = 'else';
+          })
+        expect(run1).to.equal('pass');
+        expect(run2).to.equal('pass');
+        expect(modified).to.equal('modified');
+        expect(_else1).to.equal('else');
+      });
+
+      it('else will execute after a failing elseIf', function(){
+        var run1 = 'pass';
+        var run2 = 'pass';
+        var _else1 = 'fail';
+        var modified = 'modified';
+        ifTrue
+          .if(true)
+          .and(false)
+          .or(false)
+          .and(false)
+          .run(function(){
+            run1 = 'fail';
+          })
+          .elseIf(function(){
+            modified = 'modified';
+            return false;
+          })
+          .run(function(){
+            run2 = 'fail';
+          })
+          .else(function(){
+            _else1 = 'else';
+          })
+        expect(run1).to.equal('pass');
+        expect(run2).to.equal('pass');
+        expect(modified).to.equal('modified');
+        expect(_else1).to.equal('else');
+      });
+    });
+
+    describe('"else" usage', function(){
+      it('else will execute when other conditions fail', function(){
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .and(false)
+          .run(function(){
+            result = 'pass';
+          })
+          .else(function(){
+            result = 'else';
+          })
+        expect(result).to.equal('else');
+      });
+
+      it('else will execute when other conditions fail', function(){
+        var result = 'fail';
+        ifTrue
+          .if(false)
+          .and(true)
+          .run(function(){
+            result = 'pass';
+          })
+          .or(true)
+          .and(false)
+          .else(function(){
+            result = 'else';
+          })
+        expect(result).to.equal('else');
+      });
+
+      it('else will not execute when one other conditions pass and is successfully executed', function(){
+        // regular if statement
+        var result = 'fail';
+        if (true && true || false && false) {
+          result = 'pass';
+        }
+        expect(result).to.equal('pass');
+
+        // using library
+        var result = 'fail';
+        ifTrue
+          .if(true)
+          .and(true)
+          .or(false)
+          .and(false)
+          .run(function(){
+            result = 'pass';
+          })
+          .else(function(){
+            result = 'else';
+          })
+        expect(result).to.equal('pass');
+      });
+
+      it('else will not execute when one other conditions pass and is successfully executed', function(){
+        var result = 'fail';
+        ifTrue
+        .if(true)
+        .and(true)
+        .or(false)
+        .and(false)
+        .or(false)
+        .or(true)
+        .and(true)
+        .and(false)
+        .run(function(){
+          result = 'pass';
+        })
+        .else(function(){
+          result = 'else';
+        })
+        expect(result).to.equal('pass');
+      });
+    });
   });
 
 })();
