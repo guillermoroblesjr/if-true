@@ -48,6 +48,10 @@
       instance.isTrue = !!options();
     }
 
+    if ( typeof options === 'object' && options.isTrue !== undefined ) {
+      instance.isTrue = options.val();
+    }
+
     return instance;
   };
  
