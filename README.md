@@ -15,7 +15,6 @@ ifTrue
       .and( 4 === 2 )
       .or( 3 === 2 )
       .or( false )
-      .val()
   )
   // second test
   .or(
@@ -25,7 +24,6 @@ ifTrue
       .and( 3 < 7 )
       .or( typeof 'apples' === 'string' )
       .and( false === true )
-      .val()
   )
   // third test
   .or(
@@ -34,7 +32,6 @@ ifTrue
       .and( false > true )
       .or( (3*5 < (1-2)) )
       .and( 4 === true )
-      .val()
   )
   // fourth test
   .and(true === false)
@@ -49,7 +46,6 @@ ifTrue
       .and( 3 < 7 )
       .or( typeof 'apples' === 'string' )
       .and( true === true )
-      .val()
   )
   .run(function(){
     console.log('second condition passed!');
@@ -61,7 +57,6 @@ ifTrue
           .and( 4 === 2 )
           .or( 3 === 2 )
           .or( false )
-          .val()
       )
       // second test
       .or(
@@ -71,7 +66,6 @@ ifTrue
           .and( 3 < 7 )
           .or( typeof 'apples' === 'string' )
           .and( true !== true )
-          .val()
       )
       // third test
       .or(
@@ -80,7 +74,6 @@ ifTrue
           .and( false > true )
           .or( (3*5 < (1-2)) )
           .and( 4 === true )
-          .val()
       )
       // fourth test
       .and(true === false)
