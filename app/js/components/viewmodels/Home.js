@@ -26,7 +26,12 @@ define(function(require){
     this.b = false;
     this.c = false;
     this.d = false;
-    
+
+    this.submitButton1 = {
+      isDisabled: true
+    };
+
+
     console.log('created a new ' + 'Home' + ' instance');
     
     return this;

@@ -93,7 +93,11 @@
           <div class="text-center">
             <div class="col-sm-4">
               <label>Application 1</label>
-              <button class="btn btn-primary circle">
+              <button 
+                class="btn btn-primary circle"
+                disabled
+                v-bind:disabled="homeVm.submitButton1.isDisabled"
+              >
                 <span class="button-content">Submit</span>
               </button>
             </div>

@@ -8,6 +8,7 @@
     waitSeconds: 0,
     baseUrl: '',
     paths: {
+      ifTrue: 'js/if-true/if-true',
 
       // Bower Components
       Section:                      bc + 'Section/index',
