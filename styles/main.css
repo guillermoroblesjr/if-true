@@ -32,6 +32,7 @@ body {
   color: #0081FF;
   margin: 0;
   padding: 30px;
+  padding-bottom: 60px;
   background-color: rgb(255, 255, 255);
   font-size: 50px;
   display: inline-block;
@@ -39,4 +40,19 @@ body {
 
 #header-link {
   text-decoration: none;
+}
+
+button.circle {
+  border-radius: 35px;
+  padding: 35px;
+}
+
+.button-content{
+  position: absolute;
+  top: 52%;
+  left: 65px;
+}
+
+li:last-of-type{
+  margin-bottom: 10px;
 }

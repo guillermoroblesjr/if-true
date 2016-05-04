@@ -57,16 +57,16 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            <input type="checkbox" v-model="homeVm.a" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> a
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            <input type="checkbox" v-model="homeVm.b" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> b
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+            <input type="checkbox" v-model="homeVm.c" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> c
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox4" value="option3"> 4
+            <input type="checkbox" v-model="homeVm.d" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> d
           </label>
         </div>
         <div class="form-group">
@@ -93,15 +93,21 @@
           <div class="text-center">
             <div class="col-sm-4">
               <label>Application 1</label>
-              <button class="btn btn-primary" disabled>Submit</button>
+              <button class="btn btn-primary circle">
+                <span class="button-content">Submit</span>
+              </button>
             </div>
             <div class="col-sm-4">
               <label>Application 2</label>
-              <button class="btn btn-primary" disabled>Submit</button>
+              <button class="btn btn-primary circle" disabled>
+                <span class="button-content">Submit</span>
+              </button>
             </div>
             <div class="col-sm-4">
               <label>Application 3</label>
-              <button class="btn btn-primary" disabled>Submit</button>
+              <button class="btn btn-primary circle" disabled>
+                <span class="button-content">Submit</span>
+              </button>
             </div>
           </div>
         </div>

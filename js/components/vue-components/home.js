@@ -6,6 +6,7 @@ define(function(require, exports, module){
   'use strict';
 
   var Vue = require('Vue');
+  var Section = require('Section');
   var viewModels = require('js/components/viewmodels/ViewModels')();
   var homeTemplate = require('text!vue-components/home.vue');
 
@@ -16,7 +17,13 @@ define(function(require, exports, module){
       return viewModels;
     },
     methods: {
-      displayUsername: function(){}
+      publish: function(data){
+        Section.publish(('home::' + data.fn), {
+          data: {
+            event: data.event
+          }
+        });
+      }
     },
     route: {
       activate: function(){}

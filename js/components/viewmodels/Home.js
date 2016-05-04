@@ -22,6 +22,11 @@ define(function(require){
   var Fn = function(options){
     'use strict';
     
+    this.a = false;
+    this.b = false;
+    this.c = false;
+    this.d = false;
+    
     console.log('created a new ' + 'Home' + ' instance');
     
     return this;
