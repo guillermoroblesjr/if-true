@@ -1,8 +1,12 @@
 {
   "name": "if-true",
-  "private": true,
+  "private": "true",
   "dependencies": {
-    "foundation": "~5.5.1",
+    "Section": "https://raw.githubusercontent.com/guillermoroblesjr/Section.js/master/app/scripts/Section/Section.js",
+    "vue": "^1.0.21",
+    "jquery": "^2.2.3",
+    "vue-router": "^0.7.13",
+    "text": "requirejs-text#^2.0.15"
   },
   "devDependencies": {
     "mocha": "~2.1.0",

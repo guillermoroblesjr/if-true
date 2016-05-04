@@ -1,6 +1,11 @@
 # if-true.js
 
-A way to legibly structure heavily nested conditional statements.
+A way to legibly structure heavily nested conditional statements. 
+
+<p>When the business can't
+make up their minds on what they want or you just have a ton of logic to execute before
+taking a specific path, if-true.js can help take off some of the mental load when staring
+at complex if-else statements.</p>
 
 <a href="http://guillermoroblesjr.github.io/if-true.js/">View a live example here</a>
 
