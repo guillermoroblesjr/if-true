@@ -41,7 +41,21 @@ define(function(require, exports, module){
       viewModels: viewModels,
     },
     events: [],
-    subscriptions: [],
+    subscriptions: [
+      // home::checkboxChange
+      {
+        topic: 'home::checkboxChange',
+        fn: function( data ){
+          var instance = this;
+          var viewModels = instance.data.viewModels;
+          var homeVm = viewModels.homeVm;
+          var event = data.data.event;
+          var $el = $(event.target);
+
+          console.log('homeVm: ', JSON.parse(JSON.stringify(homeVm)));
+        }
+      },
+    ],
     inits: []
   });
 
