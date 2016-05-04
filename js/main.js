@@ -4,10 +4,7 @@
 */
 
 require(["require-config"], function () {
-  // index.html
-  if ( true ) {
-    require(['scripts/index-app'], function () {
-      console.log("index-app started");
-    });
-  }
+  require(['js/app'], function () {
+    console.log("app started");
+  });
 });
