@@ -70,17 +70,20 @@
           </label>
         </div>
         <div class="form-group">
-          <select class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <select 
+            class="form-control" 
+            v-model="homeVm.dropdownSelection"
+            v-on:change="publish({event: $event, fn: 'checkboxChange'})"
+          >
+            <option v-for="option in homeVm.dropdownOptions" v-bind:value="option.value"
+            >
+              {{ option.text }}
+            </option>
           </select>
         </div>
         <div class="form-group">
           <div class="">
-            <h4>11:44 AM</h4>
+            <h4>{{ homeVm.time }}</h4>
           </div>
         </div>
         <div class="form-group">

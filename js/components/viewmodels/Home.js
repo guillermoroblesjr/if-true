@@ -27,9 +27,19 @@ define(function(require){
     this.c = false;
     this.d = false;
 
+    this.time = '';
+
     this.submitButton1 = {
       isDisabled: true
     };
+
+    this.dropdownSelection = '';
+    this.dropdownOptions = [
+      { value: false, text: '' },
+      { value: 'Not Awesome', text: 'Not Awesome' },
+      { value: 'Almost Awesome', text: 'Almost Awesome' },
+      { value: 'Awesome', text: 'Awesome' }
+    ];
 
 
     console.log('created a new ' + 'Home' + ' instance');
