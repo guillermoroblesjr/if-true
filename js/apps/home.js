@@ -110,8 +110,16 @@ define(function(require, exports, module){
 
               homeVm.time = (h + ":" + m + ":" + s);
 
-              if ( (homeVm.a === true && homeVm.b === true) 
-                    && (homeVm.c === false || homeVm.dropdownSelection !== 'Awesome')
+              if ( 
+                    // test 1
+                    (homeVm.a === true && homeVm.b === true 
+                      || (homeVm.dropdownSelection === 'Not Awesome' && homeVm.valueSelected < 20)
+                    ) 
+                    // test 2
+                    && (homeVm.c === false 
+                        || (homeVm.dropdownSelection !== 'Awesome' || homeVm.dropdownSelection !== 'Almost Awesome')
+                        )
+                    
                     && homeVm.dropdownSelection === 'Awesome'
                     && (new Date().getMinutes() % 2)
                     || false
@@ -122,12 +130,23 @@ define(function(require, exports, module){
               }
 
               ifTrue
-                // if user selects a and b
-                .if( homeVm.a === true && homeVm.b === true )
+                // test 1
+                .if(
+                  ifTrue
+                    .if( homeVm.a === true && homeVm.b === true )
+                    .or( homeVm.dropdownSelection === 'Not Awesome' && homeVm.valueSelected < 20 )
+                )
+                // test 2
+                .and(
+                  ifTrue
+                    .if( homeVm.c === false  )
+                    .or( homeVm.dropdownSelection !== 'Awesome' || homeVm.dropdownSelection !== 'Almost Awesome' )
+                )
 
                 // and user does not selects c
                 // or does not select 'Awesome'
                 .and( homeVm.c === false || homeVm.dropdownSelection !== 'Awesome' )
+
 
 
 
