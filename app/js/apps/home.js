@@ -58,20 +58,30 @@ define(function(require, exports, module){
           ifTrue
             // if user selects a
             .if( homeVm.a === true )
+
             // and user selects b
-            .and(true)
+            .and( homeVm.b === true )
+
             // and does not select c
-            .and(true)
+            .and( homeVm.c === false )
+
             // and user selects 'Awesome'
-            .and(true)
+            .and( homeVm.dropdownSelection === 'Awesome' )
+
             // and time is an odd minute, i.e. 10:01 am
-            .and(true)
+            .and(function(){
+              return new Date().getMinutes() % 2;
+            })
+
             // or user enters a number between 5 and 30
             .or(false)
+
             // and number is not 10
             .and(true)
+
             // and number is not 15
             .and(true)
+
             .run(function(){
               homeVm.submitButton1.isDisabled = false;
             })
@@ -82,7 +92,91 @@ define(function(require, exports, module){
         }
       },
     ],
-    inits: []
+    inits: [
+      {
+        fn: function(){
+
+          var instance = this;
+          var viewModels = instance.data.viewModels;
+          var homeVm = viewModels.homeVm;
+
+          function startTime() {
+              var today = new Date();
+              var h = today.getHours();
+              var m = today.getMinutes();
+              var s = today.getSeconds();
+              m = checkTime(m);
+              s = checkTime(s);
+
+              homeVm.time = (h + ":" + m + ":" + s);
+
+              if ( (homeVm.a === true && homeVm.b === true) 
+                    && (homeVm.c === false || homeVm.dropdownSelection !== 'Awesome')
+                    && homeVm.dropdownSelection === 'Awesome'
+                    && (new Date().getMinutes() % 2)
+                    || false
+                    && true
+                    && true
+                ) {
+                // console.log(true)
+              }
+
+              ifTrue
+                // if user selects a and b
+                .if( homeVm.a === true && homeVm.b === true )
+
+                // and user does not selects c
+                // or does not select 'Awesome'
+                .and( homeVm.c === false || homeVm.dropdownSelection !== 'Awesome' )
+
+
+
+              ifTrue
+                // if user selects a
+                .if( homeVm.a === true )
+
+                // and user selects b
+                .and( homeVm.b === true )
+
+                // and does not select c
+                .and( homeVm.c === false )
+
+                // and user selects 'Awesome'
+                .and( homeVm.dropdownSelection === 'Awesome' )
+
+                // and time is an odd minute, i.e. 10:01 am
+                .and(function(){
+                  return new Date().getMinutes() % 2;
+                })
+
+                // or user enters a number between 5 and 30
+                .or(false)
+
+                // and number is not 10
+                .and(true)
+
+                // and number is not 15
+                .and(true)
+
+                .run(function(){
+                  homeVm.submitButton1.isDisabled = false;
+                })
+                .else(function(){
+                  homeVm.submitButton1.isDisabled = true;
+                });
+
+              var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+              if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+              return i;
+          }
+
+          startTime();
+        },
+        args: []
+      }
+    ]
   });
 
   exports.submitButton1 = submitButton1;
