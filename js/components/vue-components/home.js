@@ -23,11 +23,11 @@ define(function(require, exports, module){
             event: data.event
           }
         });
-      }
+      },
     },
     route: {
       activate: function(){}
-    }
+    },
   });
 
   // register

@@ -14,6 +14,7 @@ define(function(require, exports, module){
   ////////////////////////////////////////////////////////////////////////
 
   var HomeSection = require('js/components/screen-sections/Home');
+  var application1 = require('js/components/application1');
   var viewModels = require('js/components/viewmodels/ViewModels')();
   var ifTrue = require('ifTrue');
 
@@ -36,6 +37,12 @@ define(function(require, exports, module){
   // 'Submit Button 1' Feature
   ////////////////////////////////////////////////////////////////////////
 
+  // Extend the HomeSection prototype 'fieldMethods' property
+  HomeSection = application1({
+    Fn: HomeSection,
+    extend: HomeSection.prototype.fieldMethods
+  });
+
   var submitButton1 = new HomeSection({
     section: $('#user-form'),
     data: {
@@ -43,58 +50,78 @@ define(function(require, exports, module){
     },
     events: [],
     subscriptions: [
-      // home::checkboxChange
+      // on checkbox a change enable/disable submit button for application 1
       {
-        topic: 'home::checkboxChange',
+        topic: 'home::checkboxChange::a',
         fn: function( data ){
           var instance = this;
-          var viewModels = instance.data.viewModels;
-          var homeVm = viewModels.homeVm;
-          var event = data.data.event;
-          var $el = $(event.target);
-
-          console.log('homeVm: ', JSON.parse(JSON.stringify(homeVm)));
-
-          ifTrue
-            // if user selects a
-            .if( homeVm.a === true )
-
-            // and user selects b
-            .and( homeVm.b === true )
-
-            // and does not select c
-            .and( homeVm.c === false )
-
-            // and user selects 'Awesome'
-            .and( homeVm.dropdownSelection === 'Awesome' )
-
-            // and time is an odd minute, i.e. 10:01 am
-            .and(function(){
-              return new Date().getMinutes() % 2;
-            })
-
-            // or user enters a number between 5 and 30
-            .or(false)
-
-            // and number is not 10
-            .and(true)
-
-            // and number is not 15
-            .and(true)
-
-            .run(function(){
-              homeVm.submitButton1.isDisabled = false;
-            })
-            .else(function(){
-              homeVm.submitButton1.isDisabled = true;
-            });
-
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
         }
       },
+      // on checkbox b change enable/disable submit button for application 1
+      {
+        topic: 'home::checkboxChange::b',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      },
+      // on checkbox c change enable/disable submit button for application 1
+      {
+        topic: 'home::checkboxChange::c',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      },
+      // on checkbox d change enable/disable submit button for application 1
+      {
+        topic: 'home::checkboxChange::d',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      },
+      // on dropdown change enable/disable submit button for application 1
+      {
+        topic: 'home::awesomeStatusSelectChange',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      },
+      // on dropdown change enable/disable submit button for application 1
+      {
+        topic: 'home::numberInputChange',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      }
     ],
     inits: [
       {
         fn: function(){
+
+          return;
 
           var instance = this;
           var viewModels = instance.data.viewModels;

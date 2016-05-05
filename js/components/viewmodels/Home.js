@@ -27,7 +27,7 @@ define(function(require){
     this.c = false;
     this.d = false;
 
-    this.time = '';
+    this.numberInput = null;
 
     this.submitButton1 = {
       isDisabled: true
