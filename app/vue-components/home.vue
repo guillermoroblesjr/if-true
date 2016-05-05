@@ -15,14 +15,36 @@
             <ol>
               <li><h5>Enable 'Submit 1' button</h5>
                 <ol>
-                  <li>if user selects a</li>
-                  <li>and user selects b</li>
-                  <li>and does not select c</li>
-                  <li>and user selects 'Awesome'</li>
-                  <li>and time is an odd minute, i.e. 10:01 am</li>
-                  <li>or user enters a number between 5 and 30</li>
+                  <li>if
+                    <ol>
+                      <li>user selects a</li>
+                      <li>and user selects b</li>
+                      <li>or does not select 'Not Awesome'</li>
+                      <li>and does not enter a value less than 20</li>
+                    </ol>
+                  </li>
+                  <li>and
+                    <ol>
+                      <li>does not select c</li>
+                      <li>or selects d</li>
+                      <li>or selects 'Awesome'</li>
+                    </ol>
+                  </li>
+                  <li>and
+                    <ol>
+                      <li>user selects 'Awesome'</li>
+                      <li>or user selects 'Almost Awesome'</li>
+                    </ol>
+                  </li>
                   <li>and number is not 10</li>
                   <li>and number is not 15</li>
+                  <li>or
+                    <ol>
+                      <li>user enters a number between 5 and 30</li>
+                      <li>and number is not 12</li>
+                      <li>and number is not 29</li>
+                    </ol>
+                  </li>
                 </ol>
               </li>
               <li><h5>Enable 'Submit 2' button</h5>
@@ -57,39 +79,45 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label class="checkbox-inline">
-            <input type="checkbox" v-model="homeVm.a" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> a
+            <input type="checkbox" v-model="homeVm.a" v-on:change="publish({event: $event, fn: 'checkboxChange::a'})"> a
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" v-model="homeVm.b" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> b
+            <input type="checkbox" v-model="homeVm.b" v-on:change="publish({event: $event, fn: 'checkboxChange::b'})"> b
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" v-model="homeVm.c" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> c
+            <input type="checkbox" v-model="homeVm.c" v-on:change="publish({event: $event, fn: 'checkboxChange::c'})"> c
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" v-model="homeVm.d" v-on:change="publish({event: $event, fn: 'checkboxChange'})"> d
+            <input type="checkbox" v-model="homeVm.d" v-on:change="publish({event: $event, fn: 'checkboxChange::d'})"> d
           </label>
         </div>
         <div class="form-group">
           <select 
             class="form-control" 
             v-model="homeVm.dropdownSelection"
-            v-on:change="publish({event: $event, fn: 'checkboxChange'})"
+            id="awesome-status-select"
+            v-on:change="publish({event: $event, fn: 'awesomeStatusSelectChange'})"
           >
-            <option v-for="option in homeVm.dropdownOptions" v-bind:value="option.value"
+            <option 
+              v-for="option in homeVm.dropdownOptions" 
+              v-bind:value="option.value"
             >
               {{ option.text }}
             </option>
           </select>
         </div>
         <div class="form-group">
-          <div class="">
-            <h4>{{ homeVm.time }}</h4>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword3" class="control-label">Value between 5 and 30</label>
-          <div class="">
-            <input disabled type="number" class="form-control" id="number-input" placeholder="value">
+          <label class="control-label">Value between 5 and 30</label>
+          <div>
+            <input 
+              type="number" 
+              min="5" 
+              max="30" 
+              class="form-control" 
+              v-model="homeVm.numberInput" 
+              placeholder="value"
+              v-on:change="publish({event: $event, fn: 'numberInputChange'})"
+            >
           </div>
         </div>
         <div class="form-group">
