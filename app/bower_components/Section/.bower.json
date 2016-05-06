@@ -1,0 +1,14 @@
+{
+  "name": "Section",
+  "_cacheHeaders": {
+    "ETag": "\"961b33306b4f334fc602df0b64fd424558d5faef\"",
+    "Content-Length": "1323",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:961b33306",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/guillermoroblesjr/Section.js/master/app/scripts/Section/Section.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/guillermoroblesjr/Section.js/master/app/scripts/Section/Section.js",
+  "_direct": true
+}
