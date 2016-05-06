@@ -7,7 +7,7 @@ make up their minds on what they want or you just have a ton of logic to execute
 taking a specific path, if-true.js can help take off some of the mental load when staring
 at complex if-else statements.</p>
 
-<a href="http://guillermoroblesjr.github.io/if-true.js/">View a live example here</a>
+<a href="http://guillermoroblesjr.github.io/if-true">View a live example here</a>
 
 Here is an example to the extreme:
 
