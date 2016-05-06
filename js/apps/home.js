@@ -116,6 +116,17 @@ define(function(require, exports, module){
             data: data
           });
         }
+      },
+      // on number input keyup enable/disable submit button for application 1
+      {
+        topic: 'home::numberInputKeyup',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application1.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
       }
     ],
     inits: []
@@ -161,6 +172,17 @@ define(function(require, exports, module){
             data: data
           });
         }
+      },
+      // on number input keyup enable/disable submit button for application 2
+      {
+        topic: 'home::numberInputKeyup',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application2.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
       }
     ],
     inits: []
@@ -199,6 +221,17 @@ define(function(require, exports, module){
       // on number input change enable/disable submit button for application 3
       {
         topic: 'home::numberInputChange',
+        fn: function( data ){
+          var instance = this;
+          instance.fieldMethods.application3.enableDisableSubmitButton({
+            instance: instance,
+            data: data
+          });
+        }
+      },
+      // on number input keyup enable/disable submit button for application 3
+      {
+        topic: 'home::numberInputKeyup',
         fn: function( data ){
           var instance = this;
           instance.fieldMethods.application3.enableDisableSubmitButton({

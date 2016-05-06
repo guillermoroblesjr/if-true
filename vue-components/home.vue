@@ -105,6 +105,7 @@
               v-model="homeVm.numberInput" 
               placeholder="value"
               v-on:change="publish({event: $event, fn: 'numberInputChange'})"
+              v-on:keyup="publish({event: $event, fn: 'numberInputKeyup'})"
             >
           </div>
         </div>
