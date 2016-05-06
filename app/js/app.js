@@ -61,5 +61,7 @@ define(function(require, exports, module){
   // ============================================================================= 
 
   homeScreen.submitButton1.init();
+  homeScreen.submitButton2.init();
+  homeScreen.submitButton3.init();
 
 });

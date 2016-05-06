@@ -31,12 +31,12 @@ define(function(require, exports, module){
     var extend = options.extend;
 
     ////////////////////////////////////////////////////////////////////////
-    // application1 public API
+    // application3 public API
     ////////////////////////////////////////////////////////////////////////
 
-    extend.application1 = {};
+    extend.application3 = {};
 
-    extend.application1.enableDisableSubmitButton = function( options ){
+    extend.application3.enableDisableSubmitButton = function( options ){
       'use strict';
 
       var instance = options.instance || {};
@@ -45,50 +45,19 @@ define(function(require, exports, module){
       var numberInputValue = parseInt(homeVm.numberInput);
 
       ifTrue
-        // test 1
-        .if(
-          ifTrue
-            .if( homeVm.a === true )
-            .and( homeVm.b === true )
-
-            .or( homeVm.dropdownSelection !== 'Not Awesome' )
-            .and( numberInputValue > 20 )
-        )
-        // test 2
+        .if( homeVm.b !== true )
         .and(
           ifTrue
-            .if( homeVm.c === false  )
-
-            .or( homeVm.d === true  )
-
-            .or( homeVm.dropdownSelection === 'Awesome' )
+            .if( numberInputValue >= 12 )
+            .and( numberInputValue <= 18 )
         )
-        // test 3
-        .and(
-          ifTrue
-            .if( homeVm.dropdownSelection === 'Awesome' )
-
-            .or( homeVm.dropdownSelection === 'Almost Awesome' )
-        )
-        // 
-        .and( numberInputValue !== 10 )
-        .and( numberInputValue !== 29 )
-        // test 4
-        .or(
-          ifTrue
-            .if( function(){
-              return numberInputValue >= 5;
-            } )
-            .and( numberInputValue <= 30 )
-            .and( numberInputValue !== 12 )
-            .and( numberInputValue !== 29 )
-        )
+        .and( numberInputValue !== 15 )
 
         .run(function(){
-          homeVm.submitButton1.isDisabled = false;
+          homeVm.submitButton3.isDisabled = false;
         })
         .else(function(){
-          homeVm.submitButton1.isDisabled = true;
+          homeVm.submitButton3.isDisabled = true;
         });
     };
 

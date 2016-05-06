@@ -60,18 +60,6 @@
                   <li>and number is not 15</li>
                 </ol>
               </li>
-              <li><h5>Enable 'Enter value' input</h5>
-                <ol>
-                  <li>if user selects b</li>
-                  <li>and user selects any of:
-                    <ol>
-                      <li>Awesome</li>
-                      <li>Almost Awesome</li>
-                    </ol>
-                  </li>
-
-                </ol>
-              </li>
             </ol>
           </div>
         </form>
@@ -134,13 +122,21 @@
             </div>
             <div class="col-sm-4">
               <label>Application 2</label>
-              <button class="btn btn-primary circle" disabled>
+              <button 
+                class="btn btn-primary circle"
+                disabled
+                v-bind:disabled="homeVm.submitButton2.isDisabled"
+              >
                 <span class="button-content">Submit</span>
               </button>
             </div>
             <div class="col-sm-4">
               <label>Application 3</label>
-              <button class="btn btn-primary circle" disabled>
+              <button 
+                class="btn btn-primary circle" 
+                disabled
+                v-bind:disabled="homeVm.submitButton3.isDisabled"
+              >
                 <span class="button-content">Submit</span>
               </button>
             </div>

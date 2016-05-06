@@ -22,17 +22,13 @@ define(function(require){
   var Fn = function(options){
     'use strict';
     
+    // Checkboxes
     this.a = false;
     this.b = false;
     this.c = false;
     this.d = false;
 
-    this.numberInput = null;
-
-    this.submitButton1 = {
-      isDisabled: true
-    };
-
+    // Dropdown
     this.dropdownSelection = '';
     this.dropdownOptions = [
       { value: false, text: '' },
@@ -41,6 +37,19 @@ define(function(require){
       { value: 'Awesome', text: 'Awesome' }
     ];
 
+    // Number Input
+    this.numberInput = null;
+
+    // Submit buttons
+    this.submitButton1 = {
+      isDisabled: true
+    };
+    this.submitButton2 = {
+      isDisabled: true
+    };
+    this.submitButton3 = {
+      isDisabled: true
+    };
 
     console.log('created a new ' + 'Home' + ' instance');
     
