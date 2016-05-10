@@ -128,3 +128,12 @@ else {
 }
 
 ```
+
+If you would like to run the tests and check out a local version of the example, run the following
+in your terminal:
+
+- npm install
+- npm install -g grunt
+- npm install -g grunt-cli
+- bower install
+- grunt serve
