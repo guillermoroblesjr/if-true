@@ -1,3 +1,3 @@
-import ifTrue from './app/js/if-true/if-true.js'
+const ifTrue = require('./app/js/if-true/if-true.js');
 
-export ifTrue
+module.exports = ifTrue;

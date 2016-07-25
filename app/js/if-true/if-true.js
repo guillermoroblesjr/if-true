@@ -1,20 +1,23 @@
 (function (root, factory) {
-  if(typeof define === "function" && define.amd) {
-    // Now we're wrapping the factory and assigning the return
-    // value to the AMD loader.
-    // You can assign it to root (window) as well but it will
-    // pollute the global scope.
-    define(["ifTrue"], function(ifTrue){
-      // return (root.ifTrue = factory(ifTrue));
-      return factory(ifTrue);
-    });
-  } else if(typeof module === "object" && module.exports) {
+   if(typeof module === "object" && module.exports) {
     // I've not encountered a need for this yet, since I haven't
     // run into a scenario where plain modules depend on CommonJS
     // *and* I happen to be loading in a CJS browser environment
     // but I'm including it for the sake of being thorough
-    module.exports = (root.ifTrue = factory(require("ifTrue")));
-  } else {
+    // module.exports = (root.ifTrue = factory(require("ifTrue")));
+    module.exports = factory(root.ifTrue);
+  } 
+  // else if(typeof define === "function" && define.amd) {
+  //   // Now we're wrapping the factory and assigning the return
+  //   // value to the AMD loader.
+  //   // You can assign it to root (window) as well but it will
+  //   // pollute the global scope.
+  //   define(["ifTrue"], function(ifTrue){
+  //     // return (root.ifTrue = factory(ifTrue));
+  //     return factory(ifTrue);
+  //   });
+  // } 
+  else {
     root.ifTrue = factory(root.ifTrue);
   }
 }(this, function(ifTrue) {
@@ -28,7 +31,7 @@
   var _Private = function(){
     'use strict';
  
-    this.VERSION = '0.0.1-alpha';
+    this.VERSION = '0.0.2-alpha';
  
     return this;
   };

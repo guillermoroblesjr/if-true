@@ -2,7 +2,7 @@
   "name": "if-true",
   "description": "simplify building complex if-else logic",
   "author": "Guillermo Robles Jr. <will.robles@gmail.com> (http://guillermoroblesjr.com)",
-  "version": "0.0.1-alpha",
+  "version": "0.0.2-alpha",
   "main": "index.js",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
